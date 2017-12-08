@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>简单使用echarts</title>
+	<script src="node_modules/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+	<div id="main" style="width: 900px;height: 600px;"></div>
+</body>
+<script type="text/javascript">
+	var myChat = echarts.init(document.getElementById("main"));
+	var base = +new Date(1968, 9, 3);
+	var oneDay = 24 * 3600 * 1000;
+	var date = [];
+	var data = [Math.random() * 300];
+	for (var i = 1; i < 20000; i++) {
+	var now = new Date(base += oneDay);
+		date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'));
+		data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+	}
+	var option = {
+		title: {
+			text: "Echarts begining datazoom"
+		},
+		tooltip: {
+			trigger: 'axis',
+			position: function (pt) {
+				return [pt[0],'10%'];
+			}
+		},
+		//工具箱
+		toolbox: {
+			show: true,
+			feature: {
+				saveAsImage:{
+					show: true,
+					readOnly: false
+				},
+				magicType: {
+					show: true,
+					type: ['line','bar','stack','tiled']
+				},
+				restore: {show: true},
+				saveAsImage: {show: true}
+			}
+		},
+		//图例
+		legend: {
+			data: ['意向'],
+			top: 'bottom'
+		},
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data:date
+		},
+		dataZoom: [{
+			type: 'slider',
+			start: 0,
+			end:10
+		}],
+		//自动生成
+		yAxis: {
+			type:'value',
+			boundaryGap: [0,"100%"]
+		},
+		//数据
+		series: [{
+			name: "模拟数据",
+			type: "line",
+			smooth: 'none',
+			sampling: "average",
+			itemStyle: {
+				normal:{
+					color: 'rgb(255,70,131)'
+				}
+			},
+			areaStyle: {
+				normal: {
+					color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+						offset: 0,
+						color: 'rgb(255,158,68)'
+					},{
+						offset: 1,
+						color: 'rgb(255,70,131)'
+					}])
+				}
+			},
+			data: data
+		}]
+	};
+	myChat.setOption(option);
+</script>
+</html>

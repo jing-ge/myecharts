@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>简单使用echarts</title>
+	<script src="node_modules/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+	<div id="main" style="width: 900px;height: 600px;"></div>
+</body>
+<script type="text/javascript">
+	var myChat = echarts.init(document.getElementById("main"));
+	var option = {
+		title: {
+			show: true,
+			text: "Echarts begining",
+			subtext: "learning eCharts",
+			link: "http://www.baidu.com",
+			target: "self",//self本窗口打开，默认blank在新窗口打开
+			left: "150",//数字就是像素值,距离左边的距离，也可以填center left right，默认为auto
+			borderColor: 'red',
+			borderRadius: 5,
+			borderWidth:5,
+			shadowColor: 'rgba(0, 0, 0, 0.8)',
+    		shadowBlur: 10,
+    		shadowOffsetX: 10,
+    		shadowOffsetY: 10,
+		},
+		//工具箱
+		toolbox: {
+			show: true,
+			feature: {
+				saveAsImage:{
+					show: true
+				}
+			}
+		},
+		//图例
+		legend: {
+			data: ['销量']
+		},
+		xAxis: {
+			data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+		},
+		//自动生成
+		yAxis: {
+
+		},
+		//数据
+		series: [{
+			name: "销量",
+			type: "bar",
+			data: [5,20,36,10,10,20]
+		}]
+	};
+	myChat.setOption(option);
+</script>
+</html>
